@@ -1,36 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tic Tac Toe</title>
+
+  <!-- CSS code -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    body {
+      height: 100vh;
+      width: 100vw;
+      background-color: #151414;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      width: 80vw;
+      height: 90vh;
+      background-color: #262830;
+      max-width: 450px;
+      position: relative;
+      border-radius: 8px;
+    }
+    .game {
+      width: 99%;
+      height: 55%;
+      display: grid;
+      grid-template-rows: 33% 33% 33%;
+      grid-template-columns: 33% 33% 33%;
+      gap: 5px;
+      padding: 0px 20px;
+    }
+    .box {
+      background-color: transparent;
+      box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8),
+      -2px -5px 10px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 320%;
+      border: none;
+    }
+    .hover:hover {
+      box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+    }
+    .top {
+      border-radius: 10px 0 0 0;
+    }
+    .right {
+      border-radius: 0 10px 0 0;
+    }
+    .down {
+      border-radius: 0 0 0 10px;
+    }
+    .end {
+      border-radius: 0 0 10px 0;
+    }
+    .turn {
+      height: 20%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .choose {
+      width: 35%;
+      height: 40%;
+      background: transparent;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      font-size: 35px;
+      font-weight: 700;
+      box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8),
+      -2px -5px 10px rgba(0, 0, 0, 0.8);
+    }
+    .turn1, .turn2 {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+    .turn1 {
+      color: rgb(231, 10, 169);
+    }
+    .turn2 {
+      color: rgb(65, 130, 235);
+    }
+    .b-s {
+      box-shadow: inset 15px 15px 15px 10px rgba(0, 0, 0, 0.6);
+    }
+    .msg {
+      width: 100%;
+      height: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: aliceblue;
+      gap: 12px;
+      font-size: 30px;
+    }
+    .hide {
+      display: none;
+    }
+    .btn {
+      position: absolute;
+      bottom: 20px;
+      width: 110px;
+      padding: 10PX 5px;
+      background: transparent;
+      border: none;
+      box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8),
+      -2px -5px 10px rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      color: rgb(78, 219, 26);
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .btn:hover {
+      box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.8);  
+      cursor: pointer;
+      color: rgba(78, 219, 26, 0.422);
+      font-size: small;
+    }
+    #ng {
+      right: 20px;
+    }
+    #reset {
+      left: 20px;
+    }
+  </style>
 </head>
+
+<!-- HTML code -->
 <body>
-    <div class="container">
-        <div class="turn">
-            <div class="choose">
-                <div class="turn1 b-s">X</div>
-                <div class="turn2">O</div>
-            </div>
-        </div>
-        <div class="game">
-            <button class="box hover top"></button>
-            <button class="box hover"></button>
-            <button class="box hover right"></button>
-            <button class="box hover"></button>
-            <button class="box hover"></button>
-            <button class="box hover"></button>
-            <button class="box hover down"></button>
-            <button class="box hover"></button>
-            <button class="box hover end"></button>
-        </div>
-        <div class="msg hide">
-            Winner <span id="result"></span>
-        </div>
-        <button id="reset" class="btn">Reset</button>
-        <button id="ng" class="btn">New Game</button>
+  <div class="container">
+    <div class="turn">
+      <div class="choose">
+        <div class="turn1 b-s">X</div>
+        <div class="turn2">O</div>
+      </div>
     </div>
-    <script src="script.js"></script>    
+    <div class="game">
+      <button class="box hover top"></button>
+      <button class="box hover"></button>
+      <button class="box hover right"></button>
+      <button class="box hover"></button>
+      <button class="box hover"></button>
+      <button class="box hover"></button>
+      <button class="box hover down"></button>
+      <button class="box hover"></button>
+      <button class="box hover end"></button>
+    </div>
+    <div class="msg hide">
+      Winner <span id="result"></span>
+    </div>
+    <button id="reset" class="btn">Reset</button>
+    <button id="ng" class="btn">New Game</button>
+  </div>
+
+  <!-- 🎉 Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- 🔊 Sounds -->
+  <audio id="clickSound" src="s2.mp3" preload="auto"></audio>
+  <audio id="victorySound" src="Winner.mp3" preload="auto"></audio>
+
+<!-- JS code -->
+  <script>
+    let box = document.querySelectorAll(".box");
+    let turn1 = document.querySelector(".turn1");
+    let turn2 = document.querySelector(".turn2");
+    let msg = document.querySelector(".msg");
+    let span = document.querySelector("#result");
+    let reset = document.getElementById("reset");
+    let ng = document.getElementById("ng");
+    let clickSound = document.getElementById("clickSound");
+    let victorySound = document.getElementById("victorySound");
+
+    let winnerCondition = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+
+    let turn = true;
+
+    box.forEach(bx => {
+      bx.addEventListener('click', () => {
+        if (bx.innerText !== "") return;
+
+        clickSound.play();
+
+        if (turn) {
+          bx.style.color = "rgb(231, 10, 169)";
+          bx.innerText = "X";
+          turn2.classList.add("b-s");
+          turn1.classList.remove("b-s");
+        } else {
+          bx.style.color = "rgb(65, 130, 235)";
+          bx.innerText = "O";
+          turn1.classList.add("b-s");
+          turn2.classList.remove("b-s");
+        }
+        turn = !turn;
+        checkWinner();
+      });
+    });
+
+    function checkWinner() {
+      for (let condition of winnerCondition) {
+        let [i, j, k] = condition;
+        let box1 = box[i].innerText;
+        let box2 = box[j].innerText;
+        let box3 = box[k].innerText;
+
+        if (box1 !== "" && box1 === box2 && box2 === box3) {
+          showResult(box1);
+          box.forEach(bx => bx.classList.add("b-s"));
+          box[i].classList.remove("b-s");
+          box[j].classList.remove("b-s");
+          box[k].classList.remove("b-s");
+          return;
+        }
+      }
+    }
+
+    function showResult(result) {
+      box.forEach(bx => {
+        bx.disabled = true;
+        bx.classList.remove("hover");
+      });
+
+      msg.classList.remove("hide");
+      span.innerText = result;
+      span.style.color = result === "X" ? "rgb(231, 10, 169)" : "rgb(65, 130, 235)";
+
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      victorySound.play();
+    }
+
+    function resetGame() {
+      // 🎉 Stop Confetti
+      confetti.reset();
+
+      // 🔇 Stop Sound
+      victorySound.pause();
+      victorySound.currentTime = 0;
+
+      // ♻️ Reset UI
+      box.forEach(bx => {
+        bx.innerText = "";
+        bx.disabled = false;
+        bx.classList.add("hover");
+        bx.classList.remove("b-s");
+      });
+      msg.classList.add("hide");
+      turn = true;
+      turn1.classList.add("b-s");
+      turn2.classList.remove("b-s");
+    }
+
+    reset.addEventListener('click', resetGame);
+    ng.addEventListener('click', resetGame);
+  </script>
+
 </body>
 </html>
